@@ -5,7 +5,7 @@ export default function Navbar() {
         <nav className="bg-white shadow-lg">
             <div className="container mx-auto px-4">
                 <div className="flex justify-between items-center h-16">
-                    <Link href="/public" className="text-2xl font-bold text-primary">
+                    <Link href="/" className="text-2xl font-bold text-primary">
                         PetMate
                     </Link>
 

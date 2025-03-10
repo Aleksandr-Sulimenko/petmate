@@ -1,3 +1,4 @@
+import Image from 'next/image'
 interface PetCardProps {
     name: string
     breed: string
@@ -8,9 +9,11 @@ interface PetCardProps {
 export default function PetCard({ name, breed, age, imageUrl }: PetCardProps) {
     return (
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <img
+            <Image
                 src={imageUrl}
                 alt={name}
+                width={400} // Указать размер (опционально)
+                height={300} // Указать размер (опционально)
                 className="w-full h-48 object-cover"
             />
             <div className="p-4">

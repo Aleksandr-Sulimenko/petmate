@@ -1,4 +1,4 @@
-export default function Home() {
+export default function Page() {
     return (
         <main className="container mx-auto px-4 py-8">
             <h1 className="text-4xl font-bold text-primary mb-6">
