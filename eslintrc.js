@@ -3,4 +3,7 @@ module.exports = {
   rules: {
     "react/display-name": "off", // Отключаем проблемное правило
   },
+  "parserOptions": {
+    "ecmaVersion": 2021
+  }
 };

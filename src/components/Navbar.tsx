@@ -18,9 +18,15 @@ export default function Navbar() {
                         </Link>
                         <Link
                             href="/login"
-                            className="px-3 py-2 rounded-md bg-primary text-white hover:bg-blue-600"
+                            className="px-3 py-2 rounded-md bg-primary hover:bg-blue-600"
                         >
                             Войти
+                        </Link>
+                        <Link
+                            href="/register"
+                            className="px-3 py-2 rounded-md bg-primary hover:bg-blue-600"
+                        >
+                            Авторизация
                         </Link>
                     </div>
                 </div>
