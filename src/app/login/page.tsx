@@ -1,14 +1,20 @@
 "use client";
 import { useState } from "react";
+import { loginUser } from '@/lib/api';
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Авторизация:", { email, password });
-        // Тут позже подключишь API
+        try {
+            const response = await loginUser({ email, password });
+            console.log('Вход успешен:', response);
+            localStorage.setItem('token', response.access_token);
+        } catch (error) {
+            console.error('Ошибка входа:', error);
+        }
     };
 
     return (

@@ -8,6 +8,16 @@ const api = axios.create({
     },
 })
 
+export const registerUser = async (data: { email: string; password: string }) => {
+    const response = await api.post('/auth/register', data);
+    return response.data;
+};
+
+export const loginUser = async (data: { email: string; password: string }) => {
+    const response = await api.post('/auth/login', data);
+    return response.data;
+};
+
 export const searchPets = async (filters: PetFilters): Promise<Pet[]> => {
     try {
         console.log("Отправляю запрос на:", process.env.NEXT_PUBLIC_API_URL + '/pets', filters);

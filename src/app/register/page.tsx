@@ -1,14 +1,19 @@
 "use client";
 import { useState } from "react";
+import { registerUser } from '@/lib/api';
 
 export default function RegisterPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Регистрация:", { email, password });
-        // Позже подключишь API
+        try {
+            const response = await registerUser({ email, password });
+            console.log('Регистрация успешна:', response);
+        } catch (error) {
+            console.error('Ошибка регистрации:', error);
+        }
     };
 
     return (
