@@ -1,9 +1,4 @@
-import LoginForm from './LoginForm'; // Клиентский компонент
-
-export const generateMetadata = () => ({
-    title: "PetMate - Вход",
-    description: "Войдите в свой аккаунт PetMate.",
-});
+import LoginForm from './LoginForm';
 
 export default function LoginPage() {
     return <LoginForm />;
