@@ -1,25 +1,31 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/app/store';
+import { fetchPetsStart, fetchPetsSuccess, fetchPetsFailure } from '@/features/pets/petSlice';
 import PetCard from '@/components/PetCard';
 import { searchPets } from '@/lib/api';
-import { useAuth } from '@/context/AuthContext';
-import type { Pet } from '@/types/pet';
 
 export default function SearchPage() {
-    const [pets, setPets] = useState<Pet[]>([]);
-    const { token } = useAuth();
+    const dispatch = useDispatch();
+    const { pets, loading, error } = useSelector((state: RootState) => state.pets);
+    const { token } = useSelector((state: RootState) => state.auth);
 
-    // useEffect(() => {
-    //     const fetchPets = async () => {
-    //         try {
-    //             const response = await searchPets({ breed: 'Сиамский' }, token);
-    //             setPets(response);
-    //         } catch (error) {
-    //             console.error('Ошибка при поиске питомцев:', error);
-    //         }
-    //     };
-    //     fetchPets();
-    // }, [token]);
+    useEffect(() => {
+        const fetchPets = async () => {
+            dispatch(fetchPetsStart());
+            try {
+                const response = await searchPets({ breed: 'Сиамский' }, token );
+                dispatch(fetchPetsSuccess(response));
+            } catch (error) {
+                dispatch(fetchPetsFailure((error as Error).message));
+            }
+        };
+        fetchPets();
+    }, [token, dispatch]);
+
+    if (loading) return <p>Загрузка...</p>;
+    if (error) return <p>Ошибка: {error}</p>;
 
     return (
         <div className="container mx-auto px-4 py-8">
