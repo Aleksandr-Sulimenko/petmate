@@ -1,7 +1,7 @@
-"use client"; // Mark this file as a client component
-import React, { useState } from 'react';
+"use client";
+import { useState } from "react";
 import { useRouter } from 'next/navigation';
-import { registerUser } from '@/lib/api'; // Предполагается, что у вас есть функция для запроса к API
+import { registerUser } from '@/lib/api';
 
 export default function RegisterPage() {
     const [email, setEmail] = useState('');
@@ -10,14 +10,13 @@ export default function RegisterPage() {
     const [error, setError] = useState('');
     const router = useRouter();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await registerUser({ email, password });
-            console.log('Регистрация успешна:', response);
-            router.push('/'); // Переход на главную страницу
+            await registerUser({ email, password });
+            router.push('/'); // Перенаправление на страницу входа
         } catch (error) {
-            setError(error.response?.data?.message || 'Произошла ошибка');
+            setError((error as any).response?.data?.message || 'Произошла ошибка');
         }
     };
 

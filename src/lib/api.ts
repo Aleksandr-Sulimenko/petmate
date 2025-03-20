@@ -8,20 +8,23 @@ const api = axios.create({
     },
 })
 
-export const registerUser = async (data: { email: string; password: string }) => {
-    const response = await api.post('/auth/register', data);
+export const loginUser = async (credentials: { email: string; password: string }) => {
+    const response = await api.post<{ access_token: string }>("/login", credentials);
     return response.data;
 };
 
-export const loginUser = async (data: { email: string; password: string }) => {
-    const response = await api.post('/auth/login', data);
+export const registerUser = async (credentials: { email: string; password: string }) => {
+    const response = await api.post("/register", credentials);
     return response.data;
 };
 
-export const searchPets = async (filters: PetFilters): Promise<Pet[]> => {
+export const searchPets = async (filters: { breed: string }, token?: string) => {
     try {
         console.log("Отправляю запрос на:", process.env.NEXT_PUBLIC_API_URL + '/pets', filters);
-        const response = await api.get<Pet[]>('/pets', { params: filters });
+        const response = await api.get<Pet[]>("/pets", {
+            params: filters,
+            headers: token ? { Authorization: `Bearer ${token}` } : {},
+        });
         return response.data;
     } catch (error) {
         console.error("Ошибка при запросе:", error);
